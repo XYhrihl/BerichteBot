@@ -10,8 +10,8 @@ import java.sql.Statement;
 public class Database
 {
 	private Connection conn;
-	private static String databasePath;
-	private static String databaseFileName;
+	private String databasePath;
+	private String databaseFileName;
 	private File dbDir;
 	
 	
@@ -204,33 +204,5 @@ public class Database
 			e.printStackTrace();
 		}
 		return null;
-	}
-	
-	
-	/********************************
-	 * 
-	 * getDatabasePath() : String
-	 * 
-	 * returns the databasePath
-	 * 
-	 * ******************************/
-	
-	public static String getDatabasePath ()
-	{
-		return databasePath;
-	}
-	
-	
-	/**********************************
-	 * 
-	 * getDatabaseFileName() : String
-	 * 
-	 * returns the databaseFileName
-	 * 
-	 * ********************************/
-	
-	public static String getDatabaseFileName()
-	{
-		return databaseFileName;
 	}
 }

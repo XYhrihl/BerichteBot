@@ -26,8 +26,8 @@ public class Database
 	{
 		try
 		{
-			databasePath = app.Database.getDatabasePath();
-			databaseFileName = app.Database.getDatabaseFileName();
+			databasePath = "src/main/resources/database/"; // TODO: you can change this path if you want.
+			databaseFileName = "database.db"; // TODO: you can change the name of your databasefile here if you want.
 			
 			dbDir = new File(databasePath);
 			if (dbDir.mkdirs())
