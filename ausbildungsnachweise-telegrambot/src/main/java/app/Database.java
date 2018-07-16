@@ -1,5 +1,6 @@
 package app;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,6 +10,9 @@ import java.sql.Statement;
 public class Database
 {
 	private Connection conn;
+	private static String databasePath;
+	private static String databaseFileName;
+	private File dbDir;
 	
 	
 	/***********************************************************************
@@ -23,7 +27,17 @@ public class Database
 	{
 		try
 		{
-			conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/database/database.db");
+			databasePath = "src/main/resources/database/"; // TODO: you can change this path if you want.
+			databaseFileName = "database.db"; // TODO: you can change the name of your databasefile here if you want.
+			
+			dbDir = new File(databasePath);
+			if (dbDir.mkdirs())
+			{
+				System.out.println("[INFO]: Database Directory " + databasePath + " was created.");
+			}
+			
+			conn = DriverManager.getConnection("jdbc:sqlite:" + databasePath + databaseFileName);
+			
 			if (conn != null)
 			{
 				System.out.println("Database connection established.");
@@ -190,5 +204,33 @@ public class Database
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	
+	/********************************
+	 * 
+	 * getDatabasePath() : String
+	 * 
+	 * returns the databasePath
+	 * 
+	 * ******************************/
+	
+	public static String getDatabasePath ()
+	{
+		return databasePath;
+	}
+	
+	
+	/**********************************
+	 * 
+	 * getDatabaseFileName() : String
+	 * 
+	 * returns the databaseFileName
+	 * 
+	 * ********************************/
+	
+	public static String getDatabaseFileName()
+	{
+		return databaseFileName;
 	}
 }

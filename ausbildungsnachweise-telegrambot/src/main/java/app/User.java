@@ -48,9 +48,10 @@ public class User
 	private String name;
 	private ArrayList<String> inputs;
 	
+	private String textFileDirectory;
 	private File saveDir;
 	
-	private AusbildungsnachweiseBot a_bot;
+	private BerichteBot b_bot;
 	private TelegramBot bot;
 	private JobDetail job;
 	private CronTrigger trigger;
@@ -59,7 +60,7 @@ public class User
 	
 	/*******************************************************************************************
 	 * 
-	 * Constructor (id: long, name: String, bot: TelegramBot, a_bot: AusbildungsnachweiseBot)
+	 * Constructor (id: long, name: String, bot: TelegramBot, b_bot: AusbildungsnachweiseBot)
 	 * 
 	 * This Constructor is called if a new User has registered.
 	 * 
@@ -68,7 +69,7 @@ public class User
 	 * 
 	 * *****************************************************************************************/
 	
-	public User (long id, String name, TelegramBot bot, AusbildungsnachweiseBot a_bot)
+	public User (long id, String name, TelegramBot bot, BerichteBot b_bot)
 	{
 		expectTime = false;
 		expectInput = false;
@@ -79,12 +80,13 @@ public class User
 		this.id = id;
 		this.name = name;
 		this.bot = bot;
-		this.a_bot = a_bot;
+		this.b_bot = b_bot;
 		
-		saveDir = new File("\\\\cccloud.ausbildung.local\\IT-Ausbildung\\Ablage Azubi und Praktikanten\\AusbildungsnachweiseBot\\" + this.name);
+		textFileDirectory = "your\\directory\\path\\"; // TODO: put your direcotory path here (with \\ or / at the end).
+		saveDir = new File(this.textFileDirectory + this.name);
 		if (saveDir.mkdir())
 		{
-			System.out.println("[INFO]: Directory \\\\cccloud.ausbildung.local\\IT-Ausbildung\\Ablage Azubi und Praktikanten\\AusbildungsnachweiseBot\\" + this.name + " created.");
+			System.out.println("[INFO]: Directory " + this.textFileDirectory + this.name + " created.");
 		}
 		
 		job = JobBuilder.newJob(AskJob.class)
@@ -110,7 +112,7 @@ public class User
 	
 	/****************************************************************************************************************
 	 * 
-	 * Constructor (id: long, name: String, time: String, bot: TelegramBot, a_bot: AusbildungsnachweiseBot)
+	 * Constructor (id: long, name: String, time: String, bot: TelegramBot, b_bot: AusbildungsnachweiseBot)
 	 * 
 	 * This Constructor is called if the Bot is restarted and the User was allready registered.
 	 * 
@@ -120,7 +122,7 @@ public class User
 	 * 
 	 * **************************************************************************************************************/
 	
-	public User (long id, String name, String time, TelegramBot bot, AusbildungsnachweiseBot a_bot)
+	public User (long id, String name, String time, TelegramBot bot, BerichteBot b_bot)
 	{
 		expectTime = false;
 		expectInput = false;
@@ -131,12 +133,13 @@ public class User
 		this.id = id;
 		this.name = name;
 		this.bot = bot;
-		this.a_bot = a_bot;
+		this.b_bot = b_bot;
 		
-		saveDir = new File("\\\\cccloud.ausbildung.local\\IT-Ausbildung\\Ablage Azubi und Praktikanten\\AusbildungsnachweiseBot\\" + this.name);
+		textFileDirectory = "your\\directory\\path\\"; // TODO: put your direcotory path here (with \\ or / at the end).
+		saveDir = new File(this.textFileDirectory + this.name);
 		if (saveDir.mkdir())
 		{
-			System.out.println("[INFO]: Directory \\\\cccloud.ausbildung.local\\IT-Ausbildung\\Ablage Azubi und Praktikanten\\AusbildungsnachweiseBot\\" + this.name + " created.");
+			System.out.println("[INFO]: Directory " + this.textFileDirectory + this.name + " created.");
 		}
 		
 		job = JobBuilder.newJob(AskJob.class)
@@ -175,7 +178,7 @@ public class User
 			}
 			else
 			{
-				System.out.println("[ERROR]: Wrong timestring format in Constructor User(long id, String name, String time, TelegramoBot bot, AusbildungsnachweiseBot a_bot)");
+				System.out.println("[ERROR]: Wrong timestring format in Constructor User(long id, String name, String time, TelegramoBot bot, AusbildungsnachweiseBot b_bot)");
 				bot.execute(new SendMessage(id, "Beim starten des Bots ist ein fehler aufgetregen. Versuche mit /settime eine neue Zeit zu setzten. Sollte dies nicht funktionieren wende dich an den Systemadministrator oder den Betreiber des Bots."));
 			}
 		}
@@ -266,16 +269,16 @@ public class User
 				try
 				{
 					// database
-					int saveid = a_bot.getDb().createSave(dateformat.format(now.getTime()), this);
+					int saveid = b_bot.getDb().createSave(dateformat.format(now.getTime()), this);
 					
 					// textfile
-					BufferedWriter writer = new BufferedWriter(new FileWriter("\\\\cccloud.ausbildung.local\\IT-Ausbildung\\Ablage Azubi und Praktikanten\\AusbildungsnachweiseBot\\" + this.name +"\\" + dateFilename + ".txt"));
+					BufferedWriter writer = new BufferedWriter(new FileWriter(this.textFileDirectory + this.name +"\\" + dateFilename + ".txt"));
 					writer.write("Tätigkeiten vom " + dateFilename + " von " + this.name);
 					
 					for (String s : inputs)
 					{
 						// databse
-						a_bot.getDb().createAnswer(saveid, s);
+						b_bot.getDb().createAnswer(saveid, s);
 						
 						// textfile
 						writer.append("\r\n" + s);
@@ -406,7 +409,7 @@ public class User
 		this.minutes = minutes;
 		this.seconds = seconds;
 		
-		a_bot.getDb().setTime(this);
+		b_bot.getDb().setTime(this);
 		
 		try
 		{
@@ -602,14 +605,14 @@ public class User
 	 * 
 	 * deleteAccount() : void
 	 * 
-	 * deletes this userobject from the a_bot users list and from the Database.
+	 * deletes this userobject from the b_bot users list and from the Database.
 	 * 
 	 * **********************************************************************************/
 	
 	private void deleteAccount()
 	{
-		a_bot.deleteUser(this);
-		a_bot.getDb().deleteUser(this);
+		b_bot.deleteUser(this);
+		b_bot.getDb().deleteUser(this);
 	}
 	
 	

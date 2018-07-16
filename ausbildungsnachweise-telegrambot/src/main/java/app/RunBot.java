@@ -10,16 +10,16 @@ public class RunBot
 {
 	public static void main (String[] args)
 	{
-		final AusbildungsnachweiseBot a_bot = new AusbildungsnachweiseBot();
+		final BerichteBot b_bot = new BerichteBot();
 		
-		final TelegramBot bot = a_bot.getTelegramBot();
+		final TelegramBot bot = b_bot.getTelegramBot();
 		bot.setUpdatesListener(new UpdatesListener()
 		{
 			public int process(List<Update> updates)
 			{
 				for (Update u : updates)
 				{
-					a_bot.readInput(u.message().text(), u.message().chat().id());
+					b_bot.readInput(u.message().text(), u.message().chat().id());
 				}
 				
 				return UpdatesListener.CONFIRMED_UPDATES_ALL;

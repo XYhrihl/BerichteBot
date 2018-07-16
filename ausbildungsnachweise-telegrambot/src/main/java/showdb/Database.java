@@ -1,5 +1,6 @@
 package showdb;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,7 +8,10 @@ import java.sql.SQLException;
 
 public class Database
 {
-	Connection conn;
+	private Connection conn;
+	private String databasePath;
+	private String databaseFileName;
+	private File dbDir;
 	
 	
 	/****************************************
@@ -22,7 +26,17 @@ public class Database
 	{
 		try
 		{
-			conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/database/database.db");
+			databasePath = app.Database.getDatabasePath();
+			databaseFileName = app.Database.getDatabaseFileName();
+			
+			dbDir = new File(databasePath);
+			if (dbDir.mkdirs())
+			{
+				System.out.println("[INFO]: Database Directory " + databasePath + " was created.");
+			}
+			
+			conn = DriverManager.getConnection("jdbc:sqlite:" + databasePath + databaseFileName);
+			
 			if (conn != null)
 			{
 				System.out.println("Database connection established.");

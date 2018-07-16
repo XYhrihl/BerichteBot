@@ -8,7 +8,7 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.SendMessage;
 
 
-public class AusbildungsnachweiseBot 
+public class BerichteBot 
 {	
 	private int expectUserName;
 	private ArrayList<Long> expectIdList;
@@ -26,13 +26,13 @@ public class AusbildungsnachweiseBot
 	 * 
 	 * ********************************************************************/
 	
-	public AusbildungsnachweiseBot()
+	public BerichteBot()
 	{
 		expectUserName = 0;
 		expectIdList = new ArrayList<Long>();
 		
 		users = new ArrayList<User>();
-		bot = new TelegramBot("571387595:AAGw1YZriEDSLePWVfJGZ7Leqm48U0WZfAE");
+		bot = new TelegramBot("yourTelegramApiToken"); // TODO: put your Telegram bot api token here
 		db = new Database();
 		
 		loadFromDatabase();
