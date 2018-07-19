@@ -82,7 +82,7 @@ public class User
 		this.bot = bot;
 		this.b_bot = b_bot;
 		
-		textFileDirectory = "your\\directory\\path\\"; // TODO: put your direcotory path here (with \\ or / at the end).
+		textFileDirectory = "/your/directory/path/"; // TODO: put your direcotory path here (with / at the end).
 		saveDir = new File(this.textFileDirectory + this.name);
 		if (saveDir.mkdir())
 		{
@@ -135,7 +135,7 @@ public class User
 		this.bot = bot;
 		this.b_bot = b_bot;
 		
-		textFileDirectory = "your\\directory\\path\\"; // TODO: put your direcotory path here (with \\ or / at the end).
+		textFileDirectory = "/your/directory/path/"; // TODO: put your direcotory path here (with / at the end).
 		saveDir = new File(this.textFileDirectory + this.name);
 		if (saveDir.mkdir())
 		{
@@ -241,15 +241,21 @@ public class User
 				else
 				{
 					System.out.println("[INFO]: Wrong input from user " + this.name + " at the attempt to set time.");
-					send = new SendMessage(id, "Falsche Eingabe. Bitte folgendes Format verwenden:\n\nhh:mm:ss\n\nhh: 00 - 23\nmm: 00 - 59\nss: 00 - 5\n\nOder mit /cancel abbrechen.");
+					send = new SendMessage(id, "Falsche Eingabe. Bitte folgendes Format verwenden:\n\nhh:mm:ss\n\nhh: 00 - 23\nmm: 00 - 59\nss: 00 - 59\n\nOder mit /cancel abbrechen.");
 				}
 			}
 		}
 		// if the user has been asked to enter his/her activities
 		else if (expectInput)
 		{
+			// cancel if input is /cancel
+			if (text.equals("/cancel"))
+			{
+				expectInput = false;
+				send = new SendMessage(id, "Eingabe der Tätigkeiten abgebrochen.");
+			}
 			// save the input text in the inputs ArrayList<String> until the input is /beenden
-			if (!text.equals("/beenden"))
+			else if (!text.equals("/beenden"))
 			{
 				inputs.add(text);
 				send = new SendMessage(id, "weitere Antwort eingeben oder /beenden um deine Antworten zu speichern.");
@@ -272,7 +278,7 @@ public class User
 					int saveid = b_bot.getDb().createSave(dateformat.format(now.getTime()), this);
 					
 					// textfile
-					BufferedWriter writer = new BufferedWriter(new FileWriter(this.textFileDirectory + this.name +"\\" + dateFilename + ".txt"));
+					BufferedWriter writer = new BufferedWriter(new FileWriter(this.textFileDirectory + this.name +"/" + dateFilename + ".txt"));
 					writer.write("Tätigkeiten vom " + dateFilename + " von " + this.name);
 					
 					for (String s : inputs)
@@ -552,7 +558,7 @@ public class User
 	 * ***********************************************************************/
 	
 	public void asked()
-	{		
+	{
 		expectInput = true;
 		inputs.clear();
 	}

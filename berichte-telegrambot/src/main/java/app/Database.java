@@ -27,7 +27,7 @@ public class Database
 	{
 		try
 		{
-			databasePath = "src/main/resources/database/"; // TODO: you can change this path if you want.
+			databasePath = "/your/database/path/"; // TODO: put your database path here.
 			databaseFileName = "database.db"; // TODO: you can change the name of your databasefile here if you want.
 			
 			dbDir = new File(databasePath);

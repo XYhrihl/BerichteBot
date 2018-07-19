@@ -32,7 +32,7 @@ public class BerichteBot
 		expectIdList = new ArrayList<Long>();
 		
 		users = new ArrayList<User>();
-		bot = new TelegramBot("yourTelegramApiToken"); // TODO: put your Telegram bot api token here
+		bot = new TelegramBot("yourTelegramBotToken"); // TODO: put your Telegram bot api token here
 		db = new Database();
 		
 		loadFromDatabase();
