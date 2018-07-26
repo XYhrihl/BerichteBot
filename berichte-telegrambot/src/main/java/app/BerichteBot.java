@@ -85,7 +85,7 @@ public class BerichteBot
 				expectUserName--;
 				expectIdList.remove(id);
 				createUser (id, text);
-				send = new SendMessage(id, "Hallo " + text + ". Dein Account wurde angelegt. Sende /help um einen Überblick über die Befehle zu sehen.");
+				send = new SendMessage(id, "Hallo " + text + ". Dein Account wurde angelegt. Benutze den Befehl /about für weiter Informationen zu diesem Bot oder sende /help um einen Überblick über die Befehle zu sehen.");
 			}
 			else
 			{

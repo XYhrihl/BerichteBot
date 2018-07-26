@@ -324,7 +324,11 @@ public class User
 				break;
 				
 			case "/about":
-				send = new SendMessage(id, "Ich frage dich Täglich zu einer bestimmten Uhrzeit, die du mit /settime festlegen kannst, was du heute gemacht hast. Deine Antworten werden abgespeichert, damit du dann ohne zu überlegen deine Ausbildungsnachweise oder Berichte erstellen kannst.");
+				send = new SendMessage(id, "Ich frage dich Täglich zu einer bestimmten Uhrzeit, die du mit /settime festlegen kannst, was du heute gemacht hast. "
+										 + "Deine Antworten werden abgespeichert, damit du dann ohne zu überlegen deine Berichte erstellen kannst. "
+										 + "Dieser Bot speichert die Daten lokal ab. Dadurch benötigst du Zugang zum Server auf dem der Bot läuft (bzw. dessen Speicherort). "
+										 + "Die Software ist als Open-Source Projekt auf Github unter https://github.com/XYhrihl/BerichteBot verfügbar. "
+										 + "Dort befindet sich auch eine Anleitung, mit der du deinen eigenen Berichte Bot mit deinen eigenen Daten auf deinem eigenen Server oder PC laufen lassen kannst.");
 				break;
 				
 			case "/cancel":
