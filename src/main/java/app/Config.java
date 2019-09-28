@@ -18,7 +18,7 @@ public class Config
         }
         catch (FileNotFoundException e)
         {
-            properties.setProperty("APIToken", "APIKeyMissing");
+            properties.setProperty("APIToken", "APITokenMissing");
             properties.setProperty("DatabasePath", "save/database.db");
             properties.setProperty("FilePath", "save/");
             save();

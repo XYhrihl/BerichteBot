@@ -18,7 +18,7 @@ public class AskJob implements Job
 		User user = (User) contextMap.get("user");
 				
 		user.asked();
-		SendMessage send = new SendMessage(user.getId(), "Was hast du heute gemacht? Gebe die Antworten ein und bestätige sie mit Enter. Wenn du fertig bist benutze /beenden um deine Antworten zu speichern.");
+		SendMessage send = new SendMessage(user.getId(), "Was hast du heute gemacht? Gebe die Antworten ein und bestÃ¤tige sie mit Enter. Wenn du fertig bist benutze /beenden um deine Antworten zu speichern.");
 		
 		bot.execute(send);
 	}

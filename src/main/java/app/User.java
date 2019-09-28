@@ -164,7 +164,7 @@ public class User
 		if (time == null)
 		{
 			System.out.println("[WARNING]: User with id: " + id + " and name: " + name + " has no time set in Database.");
-			bot.execute(new SendMessage(id, "Dieser Bot l�uft wieder. Du hast noch keine Fragezeit festgelegt. Benutze /settime um eine Zeit festzulegen."));
+			bot.execute(new SendMessage(id, "Dieser Bot läuft wieder. Du hast noch keine Fragezeit festgelegt. Benutze /settime um eine Zeit festzulegen."));
 		}
 		// if there was a time set in the Database start the scheduler and reply in Telegram
 		else
@@ -174,7 +174,7 @@ public class User
 				String[] timeparts = time.split(":");
 				setTime(Integer.parseInt(timeparts[0]), Integer.parseInt(timeparts[1]), Integer.parseInt(timeparts[2]));
 				
-				bot.execute(new SendMessage(id, "Dieser Bot l�uft wieder. Du wirst Montags bis Freitags um " + makeTimeString() + " nach deinen Tatigkeiten gefragt."));
+				bot.execute(new SendMessage(id, "Dieser Bot läuft wieder. Du wirst Montags bis Freitags um " + makeTimeString() + " nach deinen Tatigkeiten gefragt."));
 			}
 			else
 			{
@@ -199,19 +199,19 @@ public class User
 	{		
 		SendMessage send;
 		
-		// if the user typed /delete before he needs to confirm with "Ja, l�sche meinen Account"
+		// if the user typed /delete before he needs to confirm with "Ja, lösche meinen Account"
 		if (confirmDelete)
 		{
 			confirmDelete = false;
-			if(text.equals("Ja, l�sche meinen Account"))
+			if(text.equals("Ja, lösche meinen Account"))
 			{
 				deleteAccount();
 				System.out.println("[INFO]: Account from " + this.name + " with id " + this.id + " has been deleted.");
-				send = new SendMessage(id, "Dein Account wurde erfolgreich gel�scht. Sende mir eine Nachricht um dich neu anzumelden.");
+				send = new SendMessage(id, "Dein Account wurde erfolgreich gelöscht. Sende mir eine Nachricht um dich neu anzumelden.");
 			}
 			else
 			{
-				send = new SendMessage(id, "L�schen des Accounts wurde nicht best�tigt und somit abgebrochen.");
+				send = new SendMessage(id, "Löschen des Accounts wurde nicht bestätigt und somit abgebrochen.");
 			}
 		}
 		// if next input is expected to be the time (after /start or /settime) this if statemend is executed
@@ -252,7 +252,7 @@ public class User
 			if (text.equals("/cancel"))
 			{
 				expectInput = false;
-				send = new SendMessage(id, "Eingabe der T�tigkeiten abgebrochen.");
+				send = new SendMessage(id, "Eingabe der Tätigkeiten abgebrochen.");
 			}
 			// save the input text in the inputs ArrayList<String> until the input is /beenden
 			else if (!text.equals("/beenden"))
@@ -279,7 +279,7 @@ public class User
 					
 					// textfile
 					BufferedWriter writer = new BufferedWriter(new FileWriter(this.textFileDirectory + this.name +"/" + dateFilename + ".txt"));
-					writer.write("T�tigkeiten vom " + dateFilename + " von " + this.name);
+					writer.write("Tätigkeiten vom " + dateFilename + " von " + this.name);
 					
 					for (String s : inputs)
 					{
@@ -320,14 +320,14 @@ public class User
 			switch (text)
 			{
 			case "/help":
-				send = new SendMessage(id, "Verf�gbare Befehle:\n/help\n/about\n/start\n/stop\n/settime\n/gettime\n/cancel");
+				send = new SendMessage(id, "Verfügbare Befehle:\n/help\n/about\n/start\n/stop\n/settime\n/gettime\n/cancel");
 				break;
 				
 			case "/about":
-				send = new SendMessage(id, "Ich frage dich T�glich zu einer bestimmten Uhrzeit, die du mit /settime festlegen kannst, was du heute gemacht hast. "
-										 + "Deine Antworten werden abgespeichert, damit du dann ohne zu �berlegen deine Berichte erstellen kannst. "
-										 + "Dieser Bot speichert die Daten lokal ab. Dadurch ben�tigst du Zugang zum Server auf dem der Bot l�uft (bzw. dessen Speicherort). "
-										 + "Die Software ist als Open-Source Projekt auf Github unter https://github.com/XYhrihl/BerichteBot verf�gbar. "
+				send = new SendMessage(id, "Ich frage dich Täglich zu einer bestimmten Uhrzeit, die du mit /settime festlegen kannst, was du heute gemacht hast. "
+										 + "Deine Antworten werden abgespeichert, damit du dann ohne zu überlegen deine Berichte erstellen kannst. "
+										 + "Dieser Bot speichert die Daten lokal ab. Dadurch benötigst du Zugang zum Server auf dem der Bot läuft (bzw. dessen Speicherort). "
+										 + "Die Software ist als Open-Source Projekt auf Github unter https://github.com/XYhrihl/BerichteBot verfügbar. "
 										 + "Dort befindet sich auch eine Anleitung, mit der du deinen eigenen Berichte Bot mit deinen eigenen Daten auf deinem eigenen Server oder PC laufen lassen kannst.");
 				break;
 				
@@ -336,7 +336,7 @@ public class User
 				break;
 				
 			case "/settime":
-				send = new SendMessage(id, "Sende mir die gew�nschte Zeit im folgenden Format:\n\nhh:mm:ss\n\nhh: 00 - 23\nmm: 00 - 59\nss: 00 - 59");
+				send = new SendMessage(id, "Sende mir die gewünschte Zeit im folgenden Format:\n\nhh:mm:ss\n\nhh: 00 - 23\nmm: 00 - 59\nss: 00 - 59");
 				expectTime = true;
 				break;
 				
@@ -357,7 +357,7 @@ public class User
 				
 			case "/delete":
 				confirmDelete = true;
-				send = new SendMessage(id, "Willst du deinen Account wirklich l�schen? gebe 'Ja, l�sche meinen Account' ein (ohne ') um deinen Account endg�ltig zu l�schen.");
+				send = new SendMessage(id, "Willst du deinen Account wirklich löschen? gebe 'Ja, lösche meinen Account' ein (ohne ') um deinen Account endgültig zu löschen.");
 				break;
 				
 			default:
@@ -473,12 +473,12 @@ public class User
 				if (hours == 0 && minutes == 0 && seconds == 0)
 				{
 					expectTime = true;
-					send = new SendMessage(id, "Bot wird gestartet. Sende mir die gew�nschte Fragezeit im folgenden Format:\n\nhh:mm:ss\n\nhh: 00 - 23\nmm: 00 - 59\nss: 00 - 59");
+					send = new SendMessage(id, "Bot wird gestartet. Sende mir die gewünschte Fragezeit im folgenden Format:\n\nhh:mm:ss\n\nhh: 00 - 23\nmm: 00 - 59\nss: 00 - 59");
 				}
 				else
 				{
 					setTime(hours, minutes, seconds);
-					send = new SendMessage(id, "Bot wird gestartet. Ich frage dich von Montag bis Freitag um " + makeTimeString() + " Uhr was du heute gemacht hast.\nMit dem Befehl /settime kannst du die Fragezeit �ndern.");
+					send = new SendMessage(id, "Bot wird gestartet. Ich frage dich von Montag bis Freitag um " + makeTimeString() + " Uhr was du heute gemacht hast.\nMit dem Befehl /settime kannst du die Fragezeit ändern.");
 				}
 			}
 		}
