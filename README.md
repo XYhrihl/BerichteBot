@@ -19,9 +19,14 @@ stop - stopt den Bot
 
 These commands are in german language. If you want to change them you need to make the change in the readInput() function in the User class.
 
-When your Telegram Bot is created and set up you need to clone this repository and build it with maven. Then run the berichte-telegrambot-0.1.jar file that was created in the target folder.
-This creates the config.properties file in the directory where the berichte-telegrambot-0.1.jar file is. 
-Terminate the berichte-telegrambot-0.1.jar file, open the config.properties file and enter your APIToken. You can change the DatabasePath and FilePath if you want.
+When your Telegram Bot is created and set up you need to clone this repository and build it with maven. Then run the berichte-telegrambot-0.1-jar-with-dependencies.jar file that was created in the target folder.
+This creates the config.properties file in the same directory. As long as there is no valid APIToken in the config.properties you will get:
+
+``` text
+INFROMATION: Update listener error from request {"method":"getUpdates"} with response 404
+```
+
+Terminate the jar file, open the config.properties file and enter your APIToken. You can change the DatabasePath and FilePath if you want.
 
 This is an example properties file:
 
@@ -36,4 +41,4 @@ FilePath=save/
 APIToken=012345678:AbCd1Ef23Gh4IjKl56MnOpQrSt_UvWx78Yz
 ```
 
-Now your Bot is set up. Run the berichte-telegrambot-0.1.jar file again and use your bot with Telegram. 
+Now your Bot is set up. Run the berichte-telegrambot-0.1-jar-with-dependencies.jar file again and use your bot with Telegram.
